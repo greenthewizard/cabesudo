@@ -1,0 +1,122 @@
+$gold: #f4b535;
+$red: #d83611;
+$lightred: #ff4419;
+$cta: #3bb1cc;
+$headerfont: 'Black Han Sans', sans-serif;
+$mainfont: 'Poppins', sans-serif;
+
+body {
+	width: 100vw;
+	min-height: 800px;
+	height: 100vh;
+	background: no-repeat url("./../img/chicken2.jpg");
+	background-size: cover;
+}
+
+#content {
+	width: 80vw;
+	height: 80vh;
+	min-height: 700px;
+	min-width: 500px;
+	max-width: 900px;
+	padding: 15px 0px;
+	margin: 20px auto;
+	border-radius: 5%;
+	background-color: rgba(0, 0, 0, 0.7);
+
+	header {
+		font-family: $headerfont;
+		padding: 10px 20px 0px;
+	}
+
+	h1 {
+		color: $gold;
+		font-size: 3em;
+		margin: 0;
+		text-shadow: 5px 5px 5px black;
+		letter-spacing: 0.05em;
+	}
+
+	h2 {
+		font-size: 1.2em;
+		color: $red;
+		text-shadow: 3px 3px 5px black;
+	}
+
+	nav {
+		$height: 50px;
+
+		width: 100%;
+		height: $height;
+		background-color: rgba(0, 0, 0, 0.3);
+
+		ul {
+			text-indent: none;
+			list-style: none;
+		}
+
+		li, a{
+			display: inline-block;
+		}
+
+		a {
+			color: #ffffff; 
+			padding: 0px 20px;
+			text-decoration: none;
+			line-height: $height;
+			height: $height;
+
+			&:hover, &.active {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+		}
+	}
+
+	#tab-content {
+		padding: 20px;
+		font-family: $mainfont;
+		text-shadow: 3px 3px 5px black;
+
+		h3 {
+			color: $gold;
+		}
+
+		p {
+			color: #fff;
+		}
+
+		article {
+			width: 70%;
+			min-width: 375px;
+			max-width: 500px;
+		}
+
+		article:nth-child(even) {
+			clear: left;
+			float:right;
+		}
+
+		#contact-cta {
+			width: 100%;
+			text-align: center;
+			font-size: 1.5em;
+
+			a {
+				text-decoration: none;
+				color: $gold;
+				font-weight: bold;
+				padding: 10px;
+				background-color: $red;
+				border-radius: 15px;
+				text-shadow: none;
+				transition: all 0.7s;
+				box-shadow: 5px 5px 3px black;	
+
+				&:hover {
+					background-color: $lightred;
+					color: white;
+				}
+			}
+		}
+	}
+}
