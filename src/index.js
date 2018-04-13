@@ -3,6 +3,7 @@ import contentBlock from './contentblock.js';
 
 const $content = document.querySelector('#content');
 const $tabContent = document.querySelector('#tab-content');
+const $navLinks = document.querySelectorAll('nav a');
 
 const pages = [
 	contentBlock($tabContent, `
@@ -58,6 +59,20 @@ const pages = [
 		</article>
 	`)
 ];
+
+
+$navLinks.forEach(link => {
+	link.addEventListener('click', goToPage);
+});
+
+function goToPage(e) {
+	const $current = document.querySelector('.active');
+	const $new = e.target;
+	$current.classList.remove('active');
+	$new.classList.add('active');
+
+	pages[$new.dataset.key].display();
+}
 
 const $active = document.querySelector('.active');
 pages[$active.dataset.key].display();
