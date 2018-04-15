@@ -13,6 +13,10 @@ body {
 	background-size: cover;
 }
 
+.animate {
+	transition: height 0.4s ease-in-out;
+}
+
 #content {
 	width: 80vw;
 	min-width: 500px;
@@ -20,7 +24,8 @@ body {
 	margin: 20px auto;
 	border-radius: 25px;
 	background-color: rgba(0, 0, 0, 0.7);
-	transition: height 0.4s ease-in-out;
+
+	
 
 	#inner-wrapper {
 		padding: 15px 0px;

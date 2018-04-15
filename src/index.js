@@ -70,6 +70,10 @@ $navLinks.forEach(link => {
 	link.addEventListener('click', goToPage);
 });
 
+window.addEventListener('resize', () => {
+	$content.style.height = $innerWrapper.offsetHeight + "px";
+});
+
 function goToPage(e) {
 	const $current = document.querySelector('.active');
 	const $new = e.target;
@@ -92,6 +96,7 @@ function setNewHeight(e) {
 	e.stopPropagation();
 	pages[currentPage].display();
 	if ($content.offsetHeight !== $innerWrapper.offsetHeight) {
+		$content.classList.add('animate');
 		$content.style.height = $innerWrapper.offsetHeight + "px";
 		$content.addEventListener('transitionend', fadeIn, { once: true });
 	} else {
@@ -101,6 +106,7 @@ function setNewHeight(e) {
 }
 
 function fadeIn(e) {
+	$content.classList.remove('animate');
 	$tabContent.classList.toggle('hide');
 	$footer.classList.toggle('hide');
 	isAnimating = false;
