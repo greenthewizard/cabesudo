@@ -2,12 +2,17 @@ import './styles/style.scss';
 import contentBlock from './contentblock.js';
 
 const $content = document.querySelector('#content');
+const $innerWrapper = document.querySelector('#inner-wrapper');
 const $tabContent = document.querySelector('#tab-content');
 const $navLinks = document.querySelectorAll('nav a');
+const $footer = document.querySelector('footer');
+
+let currentPage = 0;
+let isAnimating = false;
 
 const pages = [
 	contentBlock($tabContent, `
-		<article>
+		<article class="hug-left">
 			<h3>We're all about Authentic Portuguese Dining &trade;</h3>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
@@ -16,7 +21,7 @@ const pages = [
 				Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</p>
 		</article>
-		<article class="aside">
+		<article>
 			<h3>Let us know how you "really" feel</h3>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -60,19 +65,43 @@ const pages = [
 	`)
 ];
 
-
 $navLinks.forEach(link => {
+	// link.addEventListener('click', goToPage);
 	link.addEventListener('click', goToPage);
 });
 
 function goToPage(e) {
 	const $current = document.querySelector('.active');
 	const $new = e.target;
+	if ($current.dataset.key === $new.dataset.key) { 
+		return; //Do nothing if same page.
+	}
+
+	$tabContent.addEventListener('transitionend', setNewHeight, { once: true });
+	currentPage = $new.dataset.key;
+
+	$tabContent.classList.toggle('hide');
+	$footer.classList.toggle('hide');
 	$current.classList.remove('active');
 	$new.classList.add('active');
 
-	pages[$new.dataset.key].display();
+}
+
+function setNewHeight(e) {
+	e.stopPropagation();
+	$content.addEventListener('transitionend', fadeIn, { once: true });
+	pages[currentPage].display();
+	$content.style.height = $innerWrapper.offsetHeight + "px";
+}
+
+function fadeIn(e) {
+	console.log('fade in');
+	$tabContent.classList.toggle('hide');
+	$footer.classList.toggle('hide');
 }
 
 const $active = document.querySelector('.active');
 pages[$active.dataset.key].display();
+
+//Set initial height;
+$content.style.height = $innerWrapper.offsetHeight + "px";
