@@ -77,7 +77,6 @@ function goToPage(e) {
 		return; //Do nothing if same page.
 	}
 
-	$tabContent.addEventListener('transitionend', setNewHeight, { once: true });
 	currentPage = $new.dataset.key;
 
 	$tabContent.classList.toggle('hide');
@@ -85,17 +84,22 @@ function goToPage(e) {
 	$current.classList.remove('active');
 	$new.classList.add('active');
 
+	$tabContent.addEventListener('transitionend', setNewHeight, { once: true });
 }
 
 function setNewHeight(e) {
 	e.stopPropagation();
-	$content.addEventListener('transitionend', fadeIn, { once: true });
 	pages[currentPage].display();
-	$content.style.height = $innerWrapper.offsetHeight + "px";
+	if ($content.offsetHeight !== $innerWrapper.offsetHeight) {
+		$content.style.height = $innerWrapper.offsetHeight + "px";
+		$content.addEventListener('transitionend', fadeIn, { once: true });
+	} else {
+		//heights not changing, so skip to fade in.
+		fadeIn();
+	}
 }
 
 function fadeIn(e) {
-	console.log('fade in');
 	$tabContent.classList.toggle('hide');
 	$footer.classList.toggle('hide');
 }
