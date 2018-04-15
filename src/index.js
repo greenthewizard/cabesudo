@@ -73,10 +73,11 @@ $navLinks.forEach(link => {
 function goToPage(e) {
 	const $current = document.querySelector('.active');
 	const $new = e.target;
-	if ($current.dataset.key === $new.dataset.key) { 
+	if ($current.dataset.key === $new.dataset.key || isAnimating) { 
 		return; //Do nothing if same page.
 	}
 
+	isAnimating = true;
 	currentPage = $new.dataset.key;
 
 	$tabContent.classList.toggle('hide');
@@ -94,7 +95,7 @@ function setNewHeight(e) {
 		$content.style.height = $innerWrapper.offsetHeight + "px";
 		$content.addEventListener('transitionend', fadeIn, { once: true });
 	} else {
-		//heights not changing, so skip to fade in.
+		//height didn't change, so skip to fade in.
 		fadeIn();
 	}
 }
@@ -102,6 +103,7 @@ function setNewHeight(e) {
 function fadeIn(e) {
 	$tabContent.classList.toggle('hide');
 	$footer.classList.toggle('hide');
+	isAnimating = false;
 }
 
 const $active = document.querySelector('.active');
